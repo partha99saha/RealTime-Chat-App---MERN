@@ -1,0 +1,36 @@
+# Coverage directory
+coverage
+*.lcov
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+./package-lock.json
+yarn.lock
+
+# Assets file
+images/*
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# dotenv environment variable files
+config/.env
+config/.env.production
+config/.env.test
+
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test
+.vscode
+
+# Remove logs
+./logs
+*.log
+
+#ssl
+server.cert
+server.key
