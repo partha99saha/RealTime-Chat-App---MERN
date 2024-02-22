@@ -1,7 +1,8 @@
 # We Connect - Chat Application 
-Snappy is chat application build with the power of MERN Stack.
+A Chat application built with the power of MERN Stack.
 
 # Node
 # MongoDB
+# Express
 # JavaScript
 # React
