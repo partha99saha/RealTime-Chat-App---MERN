@@ -30,7 +30,9 @@ config/.env.test
 # Remove logs
 ./logs
 *.log
+.env
 
 #ssl
 server.cert
 server.key
+yarn.lock
