@@ -15,7 +15,7 @@ app.use(cors());
 app.use(helmet());
 app.use(express.json());
 
-
+mongoose.set("strictQuery", false)
 mongoose.connect(MONGODB_URI)
   .then(() => {
     console.log("DB Connected");

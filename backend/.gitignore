@@ -6,7 +6,7 @@ coverage
 node_modules/
 jspm_packages/
 
-./package-lock.json
+package-lock.json
 yarn.lock
 
 # Assets file
