@@ -75,6 +75,8 @@ export default function Register() {
         toast.error(data.msg, toastOptions);
       }
       if (data.status === true) {
+        delete data.user.email
+        delete data.user.password
         localStorage.setItem(
           process.env.REACT_APP_LOCALHOST_KEY,
           JSON.stringify(data.user)

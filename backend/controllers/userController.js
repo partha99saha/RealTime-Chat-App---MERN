@@ -1,5 +1,6 @@
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
+const jwt = require('jsonwebtoken');
 
 module.exports.login = async (req, res, next) => {
   try {
@@ -8,11 +9,24 @@ module.exports.login = async (req, res, next) => {
     if (!user)
       return res.json({ msg: "Incorrect Username or Password", status: false });
     const isPasswordValid = await bcrypt.compare(password, user.password);
-    
+
     if (!isPasswordValid)
       return res.json({ msg: "Incorrect Username or Password", status: false });
+    const token = jwt.sign(
+      {
+        email: user.email,
+        id: user._id.toString()
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: '1h' }
+    )
     delete user.password;
-    return res.json({ status: true, user });
+    delete user.email;
+    res.status(200).json({
+      status: true,
+      user: user,
+      token: token
+    });
   } catch (ex) {
     next(ex);
   }
@@ -34,7 +48,8 @@ module.exports.register = async (req, res, next) => {
       password: hashedPassword,
     });
     delete user.password;
-    return res.json({ status: true, user });
+    delete user.email;
+    return res.status(200).json({ status: true, user });
   } catch (ex) {
     next(ex);
   }
@@ -48,7 +63,7 @@ module.exports.getAllUsers = async (req, res, next) => {
       "avatarImage",
       "_id",
     ]);
-    return res.json(users);
+    return res.status(200).json(users);
   } catch (ex) {
     next(ex);
   }
@@ -66,7 +81,9 @@ module.exports.setAvatar = async (req, res, next) => {
       },
       { new: true }
     );
-    return res.json({
+    delete userData.password;
+    delete userData.email;
+    return res.status(200).json({
       isSet: userData.isAvatarImageSet,
       image: userData.avatarImage,
     });
